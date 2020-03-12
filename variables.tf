@@ -31,9 +31,22 @@ variable "location" {
 }
 
 variable "address_space" {
-  type = list(string)
+  type        = list(string)
   description = "The supernet for the resources that will be created"
-  default = ["10.0.0.0/16"]
+  default     = ["10.0.0.0/16"]
+}
+
+variable "subnet_address" {
+  description = "The subnet that AKS resources will be deployed into"
+  default     = ["10.0.0.0/16"]
+}
+
+variable "service_endpoints" {
+  type        = list(string)
+  description = "The list of service endpoints for AKS subnet"
+  default     = ["Microsoft.ContainerRegistry",
+                 "Microsoft.Storage",
+                 "Microsoft.KeyVault"]
 }
 
 variable "tags" {

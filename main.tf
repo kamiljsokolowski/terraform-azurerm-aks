@@ -33,3 +33,13 @@ resource "azurerm_virtual_network" "aks" {
 
   tags = var.tags
 }
+
+resource "azurerm_subnet" "aks" {
+  name                 = "snet-aks"
+  resource_group_name  = var.resource_group_name
+  address_prefix       = var.subnet_address
+  virtual_network_name = azurerm_virtual_network.aks.name
+  service_endpoints    = var.service_endpoints
+
+  depends_on = [azurerm_virtual_network.aks]
+}
