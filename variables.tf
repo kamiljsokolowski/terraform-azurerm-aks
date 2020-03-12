@@ -16,3 +16,31 @@ variable "client_id" {
 variable "client_secret" {
   description = "The Azure client secret key"
 }
+
+variable "resource_group_name" {
+  description = "The name of the Azure resource group AKS K8s cluster will be deployed into. This RG should already exist"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL PARAMETERS
+# These parameters have reasonable defaults.
+# ---------------------------------------------------------------------------------------------------------------------
+variable "location" {
+  description = "The Azure region the AKS K8s cluster will be deployed in"
+  default = "westeurope"
+}
+
+variable "address_space" {
+  type = list(string)
+  description = "The supernet for the resources that will be created"
+  default = ["10.0.0.0/16"]
+}
+
+variable "tags" {
+  type = map(string)
+  default = {
+    "app"         = "Terraform module: AKS"
+    "environment" = "dev"
+    "terraform"   = "true"
+  }
+}

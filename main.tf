@@ -9,8 +9,27 @@ provider "azurerm" {
   client_id       = var.client_id
   client_secret   = var.client_secret
   tenant_id       = var.tenant_id
+
+  features {}
 }
 
 terraform {
   required_version = ">= 0.12.0"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE THE NECESSARY NETWORK RESOURCES FOR THE EXAMPLE
+# ---------------------------------------------------------------------------------------------------------------------
+resource "azurerm_virtual_network" "aks" {
+  name                = "vnet-aks"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  address_space       = var.address_space
+
+  # ddos_protection_plan {
+  #   id     = "${azurerm_ddos_protection_plan.test.id}"
+  #   enable = true
+  # }
+
+  tags = var.tags
 }
