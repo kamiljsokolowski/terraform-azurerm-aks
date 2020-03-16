@@ -16,3 +16,14 @@ variable "tenant_id" {
 # variable "client_secret" {
 #   description = "The Azure client secret key"
 # }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL PARAMETERS
+# These parameters have reasonable defaults.
+# ---------------------------------------------------------------------------------------------------------------------
+variable "tags_list"{
+  type        = list(string)
+  default     = ["Terraform module: Azure AD Service Principal",
+                 "dev",
+                 "terraform"]
+}
