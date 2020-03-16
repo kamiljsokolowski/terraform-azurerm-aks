@@ -9,13 +9,13 @@ variable "tenant_id" {
   description = "The Azure tenant ID"
 }
 
-variable "client_id" {
-  description = "The Azure client ID"
-}
+# variable "client_id" {
+#   description = "The Azure client ID"
+# }
 
-variable "client_secret" {
-  description = "The Azure client secret key"
-}
+# variable "client_secret" {
+#   description = "The Azure client secret key"
+# }
 
 variable "resource_group_name" {
   description = "The name of the Azure resource group AKS K8s cluster will be deployed into. This RG should already exist"

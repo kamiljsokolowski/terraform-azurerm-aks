@@ -9,10 +9,10 @@ variable "tenant_id" {
   description = "The Azure tenant ID"
 }
 
-variable "client_id" {
-  description = "The Azure client ID"
-}
+# variable "client_id" {
+#   description = "The Azure client ID"
+# }
 
-variable "client_secret" {
-  description = "The Azure client secret key"
-}
+# variable "client_secret" {
+#   description = "The Azure client secret key"
+# }
