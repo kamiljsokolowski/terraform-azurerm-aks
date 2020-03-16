@@ -78,4 +78,7 @@ module "log_analytics_solution" {
 
   location            = var.location
   resource_group_name = var.resource_group_name
+  solution_name       = "ContainerInsights"
+  publisher           = "Microsoft"
+  product             = "OMSGallery/ContainerInsights"
 }

@@ -26,6 +26,18 @@ variable "location" {
   default = "westeurope"
 }
 
+variable "solution_name" {
+  description = "The name of the Log Analytics solution to be deployed"
+}
+
+variable "publisher" {
+  description = "The name of the Log Analytics solution publisher"
+}
+
+variable "product" {
+  description = "The name of the Log Analytics solution product"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults.

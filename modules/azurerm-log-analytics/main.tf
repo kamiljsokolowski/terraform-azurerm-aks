@@ -29,3 +29,18 @@ resource "azurerm_log_analytics_workspace" "aks" {
 
   tags = var.tags
 }
+
+resource "azurerm_log_analytics_solution" "aks" {
+  solution_name         = var.solution_name
+  location              = var.location
+  resource_group_name   = var.resource_group_name
+  workspace_resource_id = azurerm_log_analytics_workspace.aks.id
+  workspace_name        = azurerm_log_analytics_workspace.aks.name
+
+  plan {
+    publisher = var.publisher
+    product   = var.product
+  }
+
+  depends_on = [azurerm_log_analytics_workspace.aks]
+}
