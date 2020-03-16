@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 provider "azurerm" {
-  version         = ">=2.0"
+  version         = "~> 2.0"
   subscription_id = var.subscription_id
   client_id       = var.client_id
   client_secret   = var.client_secret
@@ -42,4 +42,19 @@ resource "azurerm_subnet" "aks" {
   service_endpoints    = var.service_endpoints
 
   depends_on = [azurerm_virtual_network.aks]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE THE SERVICE PRINCIPAL
+# ---------------------------------------------------------------------------------------------------------------------
+module "service_principal" {
+  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
+  # to a specific version of the modules, such as the following example:
+  # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/azurerm-sp?ref=v0.0.1"
+  source = "./modules/azurerm-sp"
+
+  subscription_id = var.subscription_id
+  # client_id       = var.client_id
+  # client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
 }
