@@ -10,6 +10,10 @@ provider "azuread" {
   tenant_id       = var.tenant_id
 }
 
+provider "random" {
+  version = ">= 2.2.0"
+}
+
 terraform {
   required_version = ">= 0.12.0"
 }
@@ -29,4 +33,37 @@ resource "azuread_service_principal" "aks" {
 
   # TODO: use map keys -> list conversion
   tags = var.tags_list
+}
+
+# NOTE: passwd will be generated on each run
+resource "random_password" "secret" {
+  length  = 32
+  special = true
+
+  keepers = {
+    # Generate a new passwd each time we switch to a new SP
+    aks = azuread_service_principal.aks.id
+  }
+}
+
+resource "azuread_service_principal_password" "aks" {
+  service_principal_id = azuread_service_principal.aks.id
+  value                = random_password.secret.result
+  # TODO: generate end date & relative end date
+  end_date_relative    = var.end_date_relative                                             # NOTE: password will be valid for 1 year
+
+  # TODO: (with passwd keeper defined) is this still valid?
+  lifecycle {
+    ignore_changes = [
+      value,
+      end_date_relative,
+    ]
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
+
+  depends_on = [azuread_service_principal.aks,
+                random_password.secret]
 }

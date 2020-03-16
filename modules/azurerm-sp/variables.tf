@@ -21,6 +21,10 @@ variable "tenant_id" {
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults.
 # ---------------------------------------------------------------------------------------------------------------------
+variable "end_date_relative" {
+    default = "8760h"
+}
+
 variable "tags_list"{
   type        = list(string)
   default     = ["Terraform module: Azure AD Service Principal",
