@@ -61,3 +61,21 @@ module "service_principal" {
   role_definition_name  = "Network Contributor"
   scope                 = azurerm_subnet.aks.id
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE LOG ANALYTICS SOLUTION
+# ---------------------------------------------------------------------------------------------------------------------
+module "log_analytics_solution" {
+  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
+  # to a specific version of the modules, such as the following example:
+  # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/azurerm-log-analytics?ref=v0.0.1"
+  source = "./modules/azurerm-log-analytics"
+
+  subscription_id = var.subscription_id
+  # client_id       = var.client_id
+  # client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
+
+  location            = var.location
+  resource_group_name = var.resource_group_name
+}
