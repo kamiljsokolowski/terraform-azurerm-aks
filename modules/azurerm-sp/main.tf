@@ -10,6 +10,16 @@ provider "azuread" {
   tenant_id       = var.tenant_id
 }
 
+provider "azurerm" {
+  version         = ">= 2.0"
+  subscription_id = var.subscription_id
+  # client_id       = var.client_id
+  # client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
+
+  features {}
+}
+
 provider "random" {
   version = ">= 2.2.0"
 }
@@ -21,6 +31,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE THE NECESSARY AZURE AD RESOURCES FOR THE EXAMPLE
 # ---------------------------------------------------------------------------------------------------------------------
+# TODO: (as this is suppose to be a re-usable snippet) change resource name to something more generic
 resource "azuread_application" "aks" {
   name = "sp-app-aks"
 }
@@ -66,4 +77,13 @@ resource "azuread_service_principal_password" "aks" {
 
   depends_on = [azuread_service_principal.aks,
                 random_password.secret]
+}
+
+resource "azurerm_role_assignment" "aks" {
+  principal_id         = azuread_service_principal.aks.id
+  role_definition_name = var.role_definition_name
+  scope                = var.scope
+
+  depends_on = [azuread_service_principal.aks,
+                azuread_service_principal_password.aks]
 }

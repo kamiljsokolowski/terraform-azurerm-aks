@@ -22,7 +22,15 @@ variable "tenant_id" {
 # These parameters have reasonable defaults.
 # ---------------------------------------------------------------------------------------------------------------------
 variable "end_date_relative" {
-    default = "8760h"
+  default = "8760h"
+}
+
+variable "role_definition_name" {
+  default = ""
+}
+
+variable "scope" {
+  default = ""
 }
 
 variable "tags_list"{
