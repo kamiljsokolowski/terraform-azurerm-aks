@@ -74,6 +74,11 @@ variable "app_name" {
   default     = "k8s-cluster"
 }
 
+variable "workspace_name" {
+  description = "The name of the Log Analytics workspace to be deployed"
+  default     = "k8s-cluster"
+}
+
 variable "k8s_version" {
   description = "Version of Kubernetes specified when creating the AKS managed cluster"
   default     = "1.14.8"

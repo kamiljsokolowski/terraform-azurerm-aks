@@ -21,7 +21,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 # TODO: (as this is suppose to be a re-usable snippet) change resource name to something more generic
 resource "azurerm_log_analytics_workspace" "aks" {
-  name                = "loganal-ws-aks"
+  name                = "loganal-ws-${var.workspace_name}"
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.sku

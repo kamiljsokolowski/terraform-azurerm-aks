@@ -26,6 +26,10 @@ variable "location" {
   default = "westeurope"
 }
 
+variable "workspace_name" {
+  description = "The name of the Log Analytics workspace to be deployed"
+}
+
 variable "solution_name" {
   description = "The name of the Log Analytics solution to be deployed"
 }
