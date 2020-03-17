@@ -82,3 +82,73 @@ module "log_analytics_solution" {
   publisher           = "Microsoft"
   product             = "OMSGallery/ContainerInsights"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# DEPLOY THE K8S CLUSTER USING AKS
+# ---------------------------------------------------------------------------------------------------------------------
+resource "azurerm_kubernetes_cluster" "aks" {
+  name                = "aks"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  kubernetes_version  = var.k8s_version
+  dns_prefix          = var.dns_prefix
+
+  default_node_pool {
+    name                = "default"
+    vm_size             = var.vm_size
+    # availability_zones  = ""
+    enable_auto_scaling = var.enable_auto_scaling
+    max_pods            = var.max_pods
+    # node_taints         = ""
+    os_disk_size_gb     = var.os_disk_size_gb
+    type                = var.type
+    vnet_subnet_id      = azurerm_subnet.aks.id
+    # max_count           = ""
+    # min_count           = ""
+    node_count          = var.node_count
+
+    # NOTE: adding tags will make the resource try to recreate/update itself each time -> BUG?
+    # tags = var.tags
+  }
+
+  linux_profile {
+    admin_username = var.admin_username
+
+    ssh_key {
+      key_data = var.key_data
+    }
+  }
+
+  service_principal {
+    client_id     = module.service_principal.client_id
+    client_secret = module.service_principal.client_secret
+  }
+
+  role_based_access_control {
+    enabled = var.role_based_access_control_enabled
+  }
+
+  network_profile {
+    network_plugin     = "azure"
+    network_policy     = "calico"
+    # service_cidr       = ""
+    # dns_service_ip     = ""
+    # pod_cidr           = var.backend_k8s_cluster_net_pod_cidr
+    # docker_bridge_cidr = ""
+  }
+
+  addon_profile {
+    # http_application_routing {
+    #   enabled = true
+    # }
+
+    oms_agent {
+      enabled                    = true
+      log_analytics_workspace_id = module.log_analytics_solution.workspace_id
+    }
+  }
+
+  depends_on = [azurerm_subnet.aks]
+
+  tags = var.tags
+}
