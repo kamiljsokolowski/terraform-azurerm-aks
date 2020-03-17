@@ -89,7 +89,7 @@ module "log_analytics_solution" {
 # DEPLOY THE K8S CLUSTER USING AKS
 # ---------------------------------------------------------------------------------------------------------------------
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "aks"
+  name                = "aks-${var.name}"
   location            = var.location
   resource_group_name = var.resource_group_name
   kubernetes_version  = var.k8s_version

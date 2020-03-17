@@ -79,6 +79,11 @@ variable "workspace_name" {
   default     = "k8s-cluster"
 }
 
+variable "name" {
+  description = "The name of the Managed Kubernetes Cluster to create."
+  default     = "k8s-cluster"
+}
+
 variable "k8s_version" {
   description = "Version of Kubernetes specified when creating the AKS managed cluster"
   default     = "1.14.8"
