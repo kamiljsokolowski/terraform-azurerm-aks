@@ -45,13 +45,13 @@ resource "azurerm_subnet" "aks" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# CREATE THE SERVICE PRINCIPAL
+# CREATE THE AZURE AD APP & SERVICE PRINCIPAL
 # ---------------------------------------------------------------------------------------------------------------------
-module "service_principal" {
+module "azuread-app" {
   # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
   # to a specific version of the modules, such as the following example:
-  # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/azurerm-sp?ref=v0.0.1"
-  source = "./modules/azurerm-sp"
+  # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/azuread-app?ref=v0.0.1"
+  source = "./modules/azuread-app"
 
   subscription_id = var.subscription_id
   # client_id       = var.client_id
@@ -122,8 +122,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   service_principal {
-    client_id     = module.service_principal.client_id
-    client_secret = module.service_principal.client_secret
+    client_id     = module.azuread-app.client_id
+    client_secret = module.azuread-app.client_secret
   }
 
   role_based_access_control {
