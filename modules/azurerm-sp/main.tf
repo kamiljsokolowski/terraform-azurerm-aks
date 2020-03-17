@@ -33,7 +33,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 # TODO: (as this is suppose to be a re-usable snippet) change resource name to something more generic
 resource "azuread_application" "aks" {
-  name = "sp-app-aks"
+  name = var.app_name
 }
 
 # NOTE: SP only supports a list of tags instead of a key=value map

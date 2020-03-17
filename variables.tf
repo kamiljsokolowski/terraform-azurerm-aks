@@ -69,6 +69,11 @@ variable "service_endpoints" {
                  "Microsoft.KeyVault"]
 }
 
+variable "app_name" {
+  description = "The name of the Application within Azure Active Directory."
+  default     = "k8s-cluster"
+}
+
 variable "k8s_version" {
   description = "Version of Kubernetes specified when creating the AKS managed cluster"
   default     = "1.14.8"

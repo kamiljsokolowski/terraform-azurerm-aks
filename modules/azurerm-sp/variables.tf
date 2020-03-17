@@ -17,6 +17,10 @@ variable "tenant_id" {
 #   description = "The Azure client secret key"
 # }
 
+variable "app_name" {
+  description = "The name of the Application within Azure Active Directory."
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults.
