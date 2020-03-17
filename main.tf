@@ -64,13 +64,13 @@ module "azuread-app" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# CREATE LOG ANALYTICS SOLUTION
+# DEPLOY CLUSTER MONITORING
 # ---------------------------------------------------------------------------------------------------------------------
-module "log_analytics_solution" {
+module "monitoring" {
   # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
   # to a specific version of the modules, such as the following example:
-  # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/azurerm-log-analytics?ref=v0.0.1"
-  source = "./modules/azurerm-log-analytics"
+  # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/monitoring?ref=v0.0.1"
+  source = "./modules/monitoring"
 
   subscription_id = var.subscription_id
   # client_id       = var.client_id
@@ -146,7 +146,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
     oms_agent {
       enabled                    = true
-      log_analytics_workspace_id = module.log_analytics_solution.workspace_id
+      log_analytics_workspace_id = module.monitoring.workspace_id
     }
   }
 
