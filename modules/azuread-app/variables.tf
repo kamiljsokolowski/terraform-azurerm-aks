@@ -9,13 +9,15 @@ variable "tenant_id" {
   description = "The Azure tenant ID"
 }
 
-# variable "client_id" {
-#   description = "The Azure client ID"
-# }
+variable "client_id" {
+  description = "The Azure client ID"
+  default     = null
+}
 
-# variable "client_secret" {
-#   description = "The Azure client secret key"
-# }
+variable "client_secret" {
+  description = "The Azure client secret key"
+  default     = null
+}
 
 variable "app_name" {
   description = "The name of the Application within Azure Active Directory."
