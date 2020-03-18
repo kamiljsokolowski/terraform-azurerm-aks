@@ -2,9 +2,7 @@
 # DEPLOY A K8s CLUSTER IN AZURE USING AKS
 # These templates show an example of how to deploy K8s cluster in Azure using AKS.
 # ---------------------------------------------------------------------------------------------------------------------
-
 provider "azurerm" {
-  version         = "~> 2.0"
   subscription_id = var.subscription_id
   client_id       = var.client_id
   client_secret   = var.client_secret
@@ -13,8 +11,21 @@ provider "azurerm" {
   features {}
 }
 
+provider "azuread" {
+  subscription_id = var.subscription_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
+}
+
 terraform {
-  required_version = ">= 0.12.0"
+  required_version   = ">= 0.12.0"
+
+  required_providers {
+    azurerm = "~> 2.0"
+    azuread = "~> 0.7.0"
+    random  = ">= 2.2.0"
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -53,11 +64,6 @@ module "azuread-app" {
   # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/azuread-app?ref=v0.0.1"
   source = "./modules/azuread-app"
 
-  subscription_id = var.subscription_id
-  # client_id       = var.client_id
-  # client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
-
   app_name              = var.app_name
   # role_definition_name  = "Network Contributor"
   # scope                 = azurerm_subnet.aks.id
@@ -71,11 +77,6 @@ module "monitoring" {
   # to a specific version of the modules, such as the following example:
   # source = "git::git@github.com:kamiljsokolowski/terraform-azurerm-aks.git//modules/monitoring?ref=v0.0.1"
   source = "./modules/monitoring"
-
-  subscription_id = var.subscription_id
-  # client_id       = var.client_id
-  # client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
 
   location            = var.location
   resource_group_name = var.resource_group_name

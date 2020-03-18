@@ -1,24 +1,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # REQUIRED PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------
-variable "subscription_id" {
-  description = "The Azure subscription ID"
-}
-
-variable "tenant_id" {
-  description = "The Azure tenant ID"
-}
-
-variable "client_id" {
-  description = "The Azure client ID"
-  default     = null
-}
-
-variable "client_secret" {
-  description = "The Azure client secret key"
-  default     = null
-}
-
 variable "resource_group_name" {
   description = "The name of the Azure resource group Log Analytics solution will be deployed into. This RG should already exist"
 }

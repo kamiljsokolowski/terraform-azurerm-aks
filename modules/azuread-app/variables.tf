@@ -1,24 +1,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # REQUIRED PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------
-variable "subscription_id" {
-  description = "The Azure subscription ID"
-}
-
-variable "tenant_id" {
-  description = "The Azure tenant ID"
-}
-
-variable "client_id" {
-  description = "The Azure client ID"
-  default     = null
-}
-
-variable "client_secret" {
-  description = "The Azure client secret key"
-  default     = null
-}
-
 variable "app_name" {
   description = "The name of the Application within Azure Active Directory."
 }
@@ -41,7 +23,7 @@ variable "scope" {
 
 variable "tags_list"{
   type        = list(string)
-  default     = ["Terraform module: Azure AD Service Principal",
-                 "dev",
-                 "terraform"]
+  default     = ["app: Terraform module: Azure AD Service Principal",
+                 "environment: dev",
+                 "terraform: true"]
 }
