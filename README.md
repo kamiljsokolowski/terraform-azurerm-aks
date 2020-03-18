@@ -17,7 +17,7 @@ module "aks-k8s-cluster" {
   
   subscription_id     = <your Azure subscription ID>
   tenant_id		      = <your Azure tenant ID>
-  resource_group_name = "rg-terraform-azurerm-aks-example"
+  resource_group_name = <resource group name>
   vm_size             = "Standard_B2ms"
   max_pods            = 30
   os_disk_size_gb     = "32"
