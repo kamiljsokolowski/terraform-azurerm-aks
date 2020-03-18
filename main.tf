@@ -59,8 +59,8 @@ module "azuread-app" {
   tenant_id       = var.tenant_id
 
   app_name              = var.app_name
-  role_definition_name  = "Network Contributor"
-  scope                 = azurerm_subnet.aks.id
+  # role_definition_name  = "Network Contributor"
+  # scope                 = azurerm_subnet.aks.id
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

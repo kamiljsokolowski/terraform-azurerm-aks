@@ -80,6 +80,8 @@ resource "azuread_service_principal_password" "aks" {
 }
 
 resource "azurerm_role_assignment" "aks" {
+  count = var.role_definition_name != "" ? var.role_definition_name : 0
+
   principal_id         = azuread_service_principal.aks.id
   role_definition_name = var.role_definition_name
   scope                = var.scope
